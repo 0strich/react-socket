@@ -1,7 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:3000");
 
 function App() {
+  useEffect(() => {
+    socket.on("statusChipUpdate", (status) => {
+      console.log("status: ", status);
+    });
+    socket.emit("chatMessage", { test: true });
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
